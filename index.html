@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KisanBook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: url("Khet!.png") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      background-color: rgba(34, 139, 34, 0.9);
+      padding: 15px 30px;
+      color: white;
+      font-size: 26px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .left-section, .right-section {
+      flex: 1;
+      max-width: 500px;
+      margin: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .left-section h1 {
+      font-size: 60px;
+      margin-bottom: 10px;
+      color: rgba(34, 139, 34, 0.9);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .left-section p {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .tagline {
+      font-size: 16px;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #4CAF50;
+      outline: none;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .login-btn { background-color: #1877f2; color: white; }
+    .login-btn:hover { background-color: #166fe5; transform: scale(1.03); }
+
+    .create-btn { background-color: #42b72a; color: white; margin-top: 10px; }
+    .create-btn:hover { background-color: #36a420; transform: scale(1.03); }
+
+    .toggle-link {
+      color: #1877f2;
+      font-size: 14px;
+      text-align: center;
+      display: block;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #dashboard {
+      display: none;
+      animation: fadeIn 0.8s ease-in;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    #profilePic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      object-fit: cover;
+      border: 2px solid #4CAF50;
+    }
+
+    #farmerTip {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #farmerTip h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #4CAF50;
+    }
+
+    #farmerTip p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    #postsArea div {
+      background: #f1f1f1;
+      margin: 10px 0;
+      padding: 10px;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .footer {
+      background-color: rgba(255, 255, 255, 0.5);
+      color: #000;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 12px;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+      z-index: 999;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        font-size: 20px;
+        padding: 12px;
+      }
+      .left-section h1 {
+        font-size: 40px;
+      }
+      .left-section p {
+        font-size: 18px;
+      }
+    }
+    .hamburger {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  height: 100%;
+  background-color: rgba(34, 139, 34, 0.95);
+  color: white;
+  padding-top: 60px;
+  transition: 0.3s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.3);
+}
+
+.side-menu a {
+  display: block;
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.side-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+  </style>
+</head>
+<body>
+  <nav>Welcome to Kisanbook</nav>
+  <div id="sideMenu" class="side-menu">
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+<div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+  <div class="main">
+    <div class="left-section">
+      <h1>Kisanbook</h1>
+      <p>First Social Media Platform for Farmers.</p>
+      <p class="tagline">Connect and share with fellow farmers across the country.</p>
+    </div>
+
+    <div class="right-section" id="authCard">
+      <div id="loginForm">
+        <form id="login">
+          <input type="text" id="loginEmail" placeholder="📧 Email or phone" required />
+          <input type="password" id="loginPassword" placeholder="🔒 Password" required />
+          <button type="submit" class="login-btn">Log in</button>
+        </form>
+        <div class="toggle-link" onclick="toggleForm()">Create new account</div>
+      </div>
+
+      <div id="registrationForm" style="display:none;">
+        <h2>Create Account</h2>
+        <form id="register">
+          <input type="text" id="regFirstName" placeholder="First Name" required />
+          <input type="text" id="regLastName" placeholder="Last Name" required />
+          <input type="date" id="regDob" required />
+          <select id="regGender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Jaat</option>
+          </select>
+          <input type="email" id="regEmail" placeholder="Email" required />
+          <input type="text" id="regPhone" placeholder="Phone Number" required />
+          <input type="password" id="regPassword" placeholder="Password" required />
+          <input type="file" id="regProfilePic" accept="image/*" />
+          <p>Upload a profile picture</p>
+          <button type="submit" class="create-btn">Register</button>
+        </form>
+        <div class="toggle-link" onclick="toggleForm()">Already have an account? Log in</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard">
+    <img id="profilePic" src="" alt="Profile Picture" />
+    <h2>Welcome, <span id="userName"></span></h2>
+    <p>Email: <span id="userEmail"></span></p>
+    <p>DOB: <span id="userDob"></span></p>
+    <p>Gender: <span id="userGender"></span></p>
+    <p>Phone: <span id="userPhone"></span></p>
+    <textarea id="postText" placeholder="What's on your mind?" rows="3"></textarea>
+    <input type="file" id="postMedia" accept="image/*,video/*" />
+    <p>Upload your Posts Here! </p>
+    <button onclick="submitPost()" class="create-btn">Post</button>
+    <div id="postsArea"></div>
+
+    <div id="farmerTip">
+      <h3>Farmer Tip of the Day:</h3>
+      <p id="tipText"></p>
+    </div>
+  </div>
+
+  <div class="footer">Kisanbook © 2025</div>
+  <div id="toast">Action completed!</div>
+
+  <script>
+    function toggleForm() {
+      const login = document.getElementById('loginForm');
+      const reg = document.getElementById('registrationForm');
+      login.style.display = login.style.display === 'none' ? 'block' : 'none';
+      reg.style.display = reg.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2500);
+    }
+
+    document.getElementById('register').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const reader = new FileReader();
+      const file = document.getElementById('regProfilePic').files[0];
+
+      reader.onloadend = function() {
+        const user = {
+          firstName: document.getElementById('regFirstName').value,
+          lastName: document.getElementById('regLastName').value,
+          dob: document.getElementById('regDob').value,
+          gender: document.getElementById('regGender').value,
+          email: document.getElementById('regEmail').value,
+          phone: document.getElementById('regPhone').value,
+          password: document.getElementById('regPassword').value,
+          profilePic: reader.result || ''
+        };
+        localStorage.setItem(user.email, JSON.stringify(user));
+        showToast("Registration successful!");
+        toggleForm();
+      };
+
+      if (file) reader.readAsDataURL(file);
+      else reader.onloadend();
+    });
+
+    document.getElementById('login').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
+      const user = JSON.parse(localStorage.getItem(email));
+      if (user && user.password === pass) {
+        document.querySelector('.main').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+
+        document.getElementById('userName').textContent = user.firstName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userDob').textContent = user.dob;
+        document.getElementById('userGender').textContent = user.gender;
+        document.getElementById('userPhone').textContent = user.phone;
+        document.getElementById('profilePic').src = user.profilePic || '';
+
+        loadPosts(email);
+        setTipOfTheDay();
+        showToast("Login successful!");
+      } else {
+        showToast("Invalid login.");
+      }
+    });
+
+  function submitPost() {
+    const email = document.getElementById('loginEmail').value;
+    const text = document.getElementById('postText').value.trim();
+    const fileInput = document.getElementById('postMedia');
+    const file = fileInput?.files[0];
+
+    if (!text && !file) return showToast("Post cannot be empty.");
+
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const media = file ? reader.result : null;
+      const posts = JSON.parse(localStorage.getItem(email + "_posts")) || [];
+      posts.unshift({ text, media });
+      localStorage.setItem(email + "_posts", JSON.stringify(posts));
+      document.getElementById('postText').value = '';
+      if (fileInput) fileInput.value = '';
+      loadPosts(email);
+      showToast("Post shared!");
+    };
+
+    if (file) reader.readAsDataURL(file);
+    else reader.onloadend();
+  }
+
+  function loadPosts(email) {
+    const posts = JSON.parse(localStorage.getItem(email + "_posts")) || [];
+    const area = document.getElementById('postsArea');
+    area.innerHTML = "<h3>Recent Posts</h3>";
+
+    posts.forEach((post, index) => {
+      let mediaHTML = '';
+      if (post.media?.startsWith('data:image')) {
+        mediaHTML = `<img src="${post.media}" style="max-width:100%; border-radius: 8px; margin-top: 8px;" />`;
+      } else if (post.media?.startsWith('data:video')) {
+        mediaHTML = `<video controls style="max-width:100%; border-radius: 8px; margin-top: 8px;"><source src="${post.media}" type="video/mp4"></video>`;
+      }
+
+      area.innerHTML += `
+        <div>
+          <p>${post.text}</p>
+          ${mediaHTML}
+          <button onclick="deletePost(${index})" style="margin-top: 5px; background: #ff4d4d; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">Delete</button>
+        </div>
+      `;
+    });
+  }
+
+  function deletePost(index) {
+    const email = document.getElementById('loginEmail').value;
+    let posts = JSON.parse(localStorage.getItem(email + "_posts")) || [];
+    posts.splice(index, 1); // Remove post at the given index
+    localStorage.setItem(email + "_posts", JSON.stringify(posts));
+    loadPosts(email);
+    showToast("Post deleted!");
+  }
+
+
+
+    const tips = [
+      "Always rotate your crops to improve soil health and prevent pest buildup.",
+      "Use organic fertilizers to boost soil fertility and reduce harmful chemicals.",
+      "Mulch your beds to conserve moisture and prevent weeds.",
+      "Water plants early in the morning to reduce evaporation.",
+      "Keep your tools clean and sharp for better performance."
+    ];
+
+    function setTipOfTheDay() {
+      const randomIndex = Math.floor(Math.random() * tips.length);
+      document.getElementById('tipText').textContent = tips[randomIndex];
+    }
+    function toggleMenu() {
+  const menu = document.getElementById("sideMenu");
+  if (menu.style.left === "0px") {
+    menu.style.left = "-200px";
+  } else {
+    menu.style.left = "0px";
+  }
+}
+
+function logout() {
+  document.getElementById('dashboard').style.display = 'none';
+  document.querySelector('.main').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  toggleMenu(); // Hide the menu
+  showToast("Logged out successfully!");
+}
+
+  </script>
+</body>
+</html>
