@@ -59,21 +59,31 @@ kisanbook/
 
 ---
 
-## 📌 To Do (Future Plans)
-🌐 Firebase or AWS backend integration
+## 📌 Future Plans
 
-🧭 GPS-based location tagging for posts
+- 🌐 Firebase or AWS integration for user data
+- 🧭 GPS tagging for posts (attendance/location verification)
+- 📲 Mobile-first responsive design
+- 💬 Real-time chat or Q&A section
+- 🗂️ Admin dashboard for moderation
 
-📲 Mobile responsive version
+---
 
-🛡️ Authentication with cloud database
+## 🤝 Contribution
+
+Pull requests are welcome! If you’d like to suggest new features or improvements, feel free to open an issue.
 
 ---
 
 ## 📃 License
-This project is open source under the MIT License.
+
+This project is open-source and free to use under the [MIT License](LICENSE).
 
 ---
 
-## ✨ Made with ❤️ by Sanskar Singh
+## ✨ Created with ❤️ by Sanskar Singh
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&style=flat-square)](https://www.linkedin.com/in/sanskar9929/)
+[![GitHub](https://img.shields.io/badge/GitHub-%2312100E.svg?logo=github&style=flat-square)](https://github.com/ishanuchaudhary)
+
 
